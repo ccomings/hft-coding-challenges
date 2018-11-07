@@ -7,7 +7,6 @@ def main():
                 if divisor < 0:
                     ret = -ret
                 return ret
-            ret += 1
 
     assert divide(10, 3) == 3
     assert divide(7, -3) == -2
