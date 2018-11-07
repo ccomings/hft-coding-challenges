@@ -1,14 +1,18 @@
 import itertools
 
+
 def main():
 
+	# setup test data
     testdata =  [-1, 0, 1, 2, -1, -4]
 
-    for perm in itertools.permutations(testdata, 3):
-        if sum(perm) == 0:
-            print perm
+    # do the work
+    results = {str(sorted(x)) for x in itertools.permutations(testdata, 3) if sum(x) == 0}
 
+    # print the results
+    print('\n'.join(results))
 
 
 if __name__ == '__main__':
     main()
+
