@@ -1,15 +1,15 @@
 import itertools
 
+
 def main():
 
     testdata =  [-1, 0, 1, 2, -1, -4]
 
-    results = filter(lambda x: sum(x) == 0, itertools.permutations(testdata, 3))
+    results = {str(sorted(x)) for x in itertools.permutations(testdata, 3) if sum(x) == 0}
 
-    print results
-
-
+    print(results)
 
 
 if __name__ == '__main__':
     main()
+
