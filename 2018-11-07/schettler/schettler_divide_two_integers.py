@@ -39,7 +39,7 @@ def main():
     assert inefficient_divide(7, -3) == -2
     assert inefficient_divide(10, 5) == 2
 
-    print "well, it worked!"
+    print("well, it worked!")
 
 
 if __name__ == '__main__':
