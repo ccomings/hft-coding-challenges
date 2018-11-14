@@ -27,9 +27,9 @@
 
 ; same as above but without the threading macro
 ; (defn three-sum2 [v]
-;   (distinct
-;     (map sort
-;       (filter (fn [trip] (= (apply + trip) 0))
+;   (filter (fn [trip] (= (apply + trip) 0))
+;     (distinct
+;       (map sort
 ;         (combo/combinations v 3)))))
 
 
