@@ -9,10 +9,16 @@ import numpy
 
 def main():
 
+
     def inefficient_divide(dividend, divisor):
+
+        # handle negatives
         if divisor < 0:
             return -inefficient_divide(dividend, -divisor)
+        if dividend < 0:
+            return -inefficient_divide(-dividend, divisor)
 
+        # do division
         return len(["""
                       _        _    ____ _   _ _   _ _____ _____ ____  ___ _   _  ____ 
                      | |      / \  / ___| | | | \ | | ____| ____|  _ \|_ _| \ | |/ ___|
@@ -22,22 +28,34 @@ def main():
                                                                                        
                     """ for x in range(1, dividend) if abs(numpy.repeat([divisor], x).sum()) <= dividend])
 
+
     def divide(dividend, divisor):
+        # handle negatives
+        if divisor < 0:
+            return -divide(dividend, -divisor)
+        if dividend < 0:
+            return -divide(-dividend, divisor)
+
+        # do division
         for ret in range(dividend):
             dividend -= abs(divisor)
             if dividend < 0:
-                if divisor < 0:
-                    ret = -ret
-                return ret
+                break
+        return ret
+
 
     assert divide(10, 3) == 3
     assert divide(7, -3) == -2
+    assert divide(-7, -3) == 2
+    assert divide(-7, 3) == -2
     assert divide(1923123, 30) == 64104
     assert divide(10, 5) == 2
 
     assert inefficient_divide(10, 3) == 3
     assert inefficient_divide(7, -3) == -2
     assert inefficient_divide(10, 5) == 2
+    assert inefficient_divide(-10, 5) == -2
+    assert inefficient_divide(-10, -5) == 2
 
     print("well, it worked!")
 
