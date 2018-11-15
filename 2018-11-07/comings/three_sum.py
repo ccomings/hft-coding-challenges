@@ -14,7 +14,7 @@ def three_sum(array):
     for i in range(0, len(array)-1):
         s = set()
         curr_sum = 0 - array[i]
-        for j in range(i+1, len(array)):
+        for j in range(i+1, len(array)-1):
             if (curr_sum - array[j]) in s:
                 print("Triplet is" + " " + str(array[i]) + " "
                          + str(array[j]) + " " + str(curr_sum-array[j]))
@@ -23,7 +23,7 @@ def three_sum(array):
     return result
 
 def main():
-    print three_sum([-1, 0, 1, 2, -1, -3])
+    print three_sum([-1, 0, 1, 2, -1, -3, 4, -4])
 
 if __name__ == '__main__':
     main()
