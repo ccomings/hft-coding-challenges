@@ -8,7 +8,7 @@ Your function should take a `board` and a `word` as input and return `true` or `
 
 # Assumptions
 1. board is rectangle
-1. board max rows = 1000
+1. board max rows/cols = 1000
 
 
 ## Example:
