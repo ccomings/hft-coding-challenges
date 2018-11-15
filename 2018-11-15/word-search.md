@@ -5,9 +5,11 @@ The word can be constructed from letters of sequentially adjacent cells, where "
 
 Your function should take a `board` and a `word` as input and return `true` or `false`.
 
-# assumptions
-board is rectangle
-board max rows = 1000
+
+# Assumptions
+1. board is rectangle
+1. board max rows = 1000
+
 
 ## Example:
 
