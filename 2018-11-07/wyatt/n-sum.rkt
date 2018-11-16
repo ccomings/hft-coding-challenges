@@ -9,11 +9,16 @@
     (combinations nums count))
    lists-same?))
 
+(define (3-sum nums)
+  (n-sum nums 3 0))
 
+;; These should be the same:
 (n-sum '(-1 0 1 2 -1 -4) 3 0)
+(3-sum '(-1 0 1 2 -1 -4))
 
-(n-sum '(-2 3 0 1 1 -1) 3 0)
+;; Some more 3-sums
+(3-sum '(-2 3 0 1 1 -1))
+(3-sum '(1 2 3 4))
 
-(n-sum '(1 2 3 4) 3 0)
-
-(n-sum '(1 2 3) 3 6)
+;; find triples that add up to 6
+(n-sum '(0 1 2 3 4 5 6) 3 6)
