@@ -18,7 +18,6 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
        throw IllegalArgumentException("The board should be rectangular")
     }
 
-    val boardSize = board.size * board[0].size
     // keep track of where letters exist
     val charToLoc: HashMap<Char, MutableList<Pair<Int, Int>>> = hashMapOf()
     for ((i, row) in board.withIndex()) {
@@ -37,43 +36,42 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
         return false
     }
 
-    for (start in starts) {
-        var currPath = mutableListOf(start)
-        var visited = mutableSetOf(start)
-        val leads: MutableList<MutableList<Pair<Int, Int>>> = mutableListOf()
+    val start = starts.last()
+    starts.removeAt(starts.size - 1)
+    var currPath = mutableListOf(start)
+    var visited = mutableSetOf(start)
+    val leads: MutableList<MutableList<Pair<Int, Int>>> = starts.map {mutableListOf(it)}.toMutableList()
+    println(leads)
 
-        while (visited.size < boardSize) {
-            val currPos = currPath.last()
-            var options: List<Pair<Int, Int>> = listOf()
-            visited.add(currPos)
+    while (visited.size < word.length || leads.size > 0) {
+        val currPos = currPath.last()
+        var options: List<Pair<Int, Int>> = listOf()
+        visited.add(currPos)
 
-            if (currPath.size < word.length) {
-                options = getOptions(board, currPos).filter {
-                    !visited.contains(it) && board[it.first][it.second] == word[currPath.size]
-                }
-            }
-
-            val currString = currPath.map {board[it.first][it.second]}.joinToString("")
-            if (currString == word) {
-                foundWord = true
-                break
-            }
-            if (options.isEmpty()) {
-                if (leads.isEmpty()) {
-                    break
-                }
-                currPath = leads.last()
-                visited = currPath.toMutableSet()
-                leads.removeAt(leads.size - 1)
-            } else {
-                for (optionPair in options.subList(0, options.size - 1)) {
-                    leads.add((currPath + mutableListOf(optionPair)) as MutableList<Pair<Int, Int>>)
-                }
-                currPath.add(options.last())
+        if (currPath.size < word.length) {
+            options = getOptions(board, currPos).filter {
+                !visited.contains(it) && board[it.first][it.second] == word[currPath.size]
             }
         }
-        if (foundWord) {
+
+        val currString = currPath.map {board[it.first][it.second]}.joinToString("")
+        println(currString)
+        if (currString == word) {
+            foundWord = true
             break
+        }
+        if (options.isEmpty()) {
+            if (leads.isEmpty()) {
+                break
+            }
+            currPath = leads.last()
+            visited = currPath.toMutableSet()
+            leads.removeAt(leads.size - 1)
+        } else {
+            for (optionPair in options.subList(0, options.size - 1)) {
+                leads.add((currPath + mutableListOf(optionPair)) as MutableList<Pair<Int, Int>>)
+            }
+            currPath.add(options.last())
         }
     }
     return foundWord
@@ -81,7 +79,7 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
 
 fun main(args: Array<String>) {
     val board: List<List<Char>> = listOf(
-        listOf('A', 'B', 'C', 'E'),
+        listOf('A', 'B', 'C', 'A'),
         listOf('S', 'F', 'C', 'S'),
         listOf('A', 'D', 'E', 'E')
     )
