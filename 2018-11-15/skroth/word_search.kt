@@ -18,54 +18,57 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
        throw IllegalArgumentException("The board should be rectangular")
     }
 
-    // keep track of where letters exist
-    val charToLoc: HashMap<Char, MutableList<Pair<Int, Int>>> = hashMapOf()
+    // initially populate our leads var with starting points.
+    // `leads` holds alternate paths to try that haven't been traversed yet
+    val leads: MutableList<MutableList<Pair<Int, Int>>> = mutableListOf()
     for ((i, row) in board.withIndex()) {
         for ((j, char) in row.withIndex()) {
-            if (char in charToLoc) {
-                charToLoc[char]?.add(Pair(i, j))
-            } else {
-                charToLoc[char] = mutableListOf(Pair(i, j))
+            if (char == word[0]) {
+                leads.add(mutableListOf(Pair(i, j)))
             }
         }
     }
-    val starts = charToLoc[word[0]]
     var foundWord = false
 
-    if (starts == null) {
+    if (leads.isEmpty()) {
         return false
     }
 
-    val start = starts.last()
-    starts.removeAt(starts.size - 1)
+    // pop off a position from leads arbitrarily and start there
+    val start = leads.last()[0]
+    leads.removeAt(leads.size - 1)
     var currPath = mutableListOf(start)
     var visited = mutableSetOf(start)
-    val leads: MutableList<MutableList<Pair<Int, Int>>> = starts.map {mutableListOf(it)}.toMutableList()
 
     while (true) {
         val currPos = currPath.last()
+        // `options` are coords we can go to next
         var options: List<Pair<Int, Int>> = listOf()
         visited.add(currPos)
 
         if (currPath.size < word.length) {
+            // get list of options and filter them to places where we can find the next letter
             options = getOptions(board, currPos).filter {
                 !visited.contains(it) && board[it.first][it.second] == word[currPath.size]
             }
         }
 
-        val currString = currPath.map {board[it.first][it.second]}.joinToString("")
-        if (currString == word) {
+        // check to see if we have found the word yet
+        if (word == currPath.map {board[it.first][it.second]}.joinToString("")) {
             foundWord = true
             break
         }
         if (options.isEmpty()) {
+            // no options to go to next, so either give up if no leads or follow a new lead
             if (leads.isEmpty()) {
                 break
             }
+            // resetting state for following new lead / path
             currPath = leads.last()
             visited = currPath.toMutableSet()
             leads.removeAt(leads.size - 1)
         } else {
+            // there are options, so choose one to follow and store the rest as leads
             for (optionPair in options.subList(0, options.size - 1)) {
                 leads.add((currPath + mutableListOf(optionPair)) as MutableList<Pair<Int, Int>>)
             }
