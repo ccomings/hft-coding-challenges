@@ -79,7 +79,7 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
 }
 
 fun main(args: Array<String>) {
-    val board: List<List<Char>> = listOf(
+    val board = listOf(
         listOf('A', 'B', 'C', 'E'),
         listOf('S', 'F', 'C', 'S'),
         listOf('A', 'D', 'E', 'E')
