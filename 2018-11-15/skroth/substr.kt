@@ -8,7 +8,8 @@ fun longestSub(str: String): Int {
         currLen += 1
         if (currSet.size < currLen) {
             currSet.clear()
-            currLen = 0
+            currSet.add(char)
+            currLen = 1
         }
         maxLen = Math.max(maxLen, currLen)
     }
