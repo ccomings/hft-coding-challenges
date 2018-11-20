@@ -28,7 +28,6 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
             }
         }
     }
-    var foundWord = false
 
     if (leads.isEmpty()) {
         return false
@@ -39,6 +38,7 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
     leads.removeAt(leads.size - 1)
     var currPath = mutableListOf(start)
     var visited = mutableSetOf(start)
+    var foundWord = false
 
     while (true) {
         val currPos = currPath.last()
