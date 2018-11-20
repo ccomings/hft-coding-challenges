@@ -84,7 +84,7 @@ fun main(args: Array<String>) {
         listOf('S', 'F', 'C', 'S'),
         listOf('A', 'D', 'E', 'E')
     )
-    println(wordSearch(board, "ABCCED"))
-    println(wordSearch(board, "SEE"))
-    println(wordSearch(board, "ABCB"))
+    println(wordSearch(board, "ABCCED"))  // true
+    println(wordSearch(board, "SEE"))  // true
+    println(wordSearch(board, "ABCB"))  // false
 }
