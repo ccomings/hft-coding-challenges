@@ -41,9 +41,8 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
     var currPath = mutableListOf(start)
     var visited = mutableSetOf(start)
     val leads: MutableList<MutableList<Pair<Int, Int>>> = starts.map {mutableListOf(it)}.toMutableList()
-    println(leads)
 
-    while (visited.size < word.length || leads.size > 0) {
+    while (true) {
         val currPos = currPath.last()
         var options: List<Pair<Int, Int>> = listOf()
         visited.add(currPos)
@@ -55,7 +54,6 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
         }
 
         val currString = currPath.map {board[it.first][it.second]}.joinToString("")
-        println(currString)
         if (currString == word) {
             foundWord = true
             break
@@ -79,7 +77,7 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
 
 fun main(args: Array<String>) {
     val board: List<List<Char>> = listOf(
-        listOf('A', 'B', 'C', 'A'),
+        listOf('A', 'B', 'C', 'E'),
         listOf('S', 'F', 'C', 'S'),
         listOf('A', 'D', 'E', 'E')
     )
