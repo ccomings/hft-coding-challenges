@@ -20,7 +20,7 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
 
     // initially populate our leads var with starting points.
     // `leads` holds alternate paths to try that haven't been traversed yet
-    val leads: MutableList<MutableList<Pair<Int, Int>>> = mutableListOf()
+    val leads: MutableList<List<Pair<Int, Int>>> = mutableListOf()
     for ((i, row) in board.withIndex()) {
         for ((j, char) in row.withIndex()) {
             if (char == word[0]) {
@@ -64,13 +64,13 @@ fun wordSearch(board: List<List<Char>>, word: String): Boolean {
                 break
             }
             // resetting state for following new lead / path
-            currPath = leads.last()
+            currPath = leads.last().toMutableList()
             visited = currPath.toMutableSet()
             leads.removeAt(leads.size - 1)
         } else {
             // there are options, so choose one to follow and store the rest as leads
             for (optionPair in options.subList(0, options.size - 1)) {
-                leads.add((currPath + mutableListOf(optionPair)) as MutableList<Pair<Int, Int>>)
+                leads.add(currPath + mutableListOf(optionPair))
             }
             currPath.add(options.last())
         }
