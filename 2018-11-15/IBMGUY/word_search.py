@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 class Solution(object):
     def exist(self, board, word):
         for row_idx, row in enumerate(board):
@@ -14,7 +12,7 @@ def search_from_index(y, x, board, word, current_index=0, seen_indices = []):
     try:
         if current_index == len(word):
             return True
-        
+
         if [y, x] in seen_indices:
             return False
 
