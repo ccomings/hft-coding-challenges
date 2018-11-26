@@ -10,10 +10,10 @@ import itertools
 def main():
 
     # setup test data
-    testdata = [-1, 0, 1, 2, -1, -4]
+    testdata = [-1, 0, 1, 2, -1, -4]*20
 
     # do the work
-    results = {str(sorted(x)) for x in itertools.permutations(testdata, 3) if sum(x) == 0}
+    results = {str(sorted(x)) for x in itertools.combinations(testdata, 3) if sum(x) == 0}
 
     # output the results
     print('\n'.join(results))
