@@ -8,22 +8,21 @@ class Solution(object):
                         return True
         return False
 
-def search_from_index(y, x, board, word, current_index=0, seen_indices = []):
+def search_from_index(y, x, board, word, seen_indices = []):
     try:
-        if current_index == len(word):
+        if len(word) == 0:
             return True
 
         if [y, x] in seen_indices:
             return False
 
-        if board[y][x] == word[current_index]:
-            current_index += 1
+        if board[y][x] == word[0]:
             seen_indices.append([y, x])
             return (
-                    search_from_index(y, x+1, board, word, current_index, seen_indices)
-                    or search_from_index(y+1, x, board, word, current_index, seen_indices)
-                    or search_from_index(y-1, x, board, word, current_index, seen_indices)
-                    or search_from_index(y, x-1, board, word, current_index, seen_indices)
+                    search_from_index(y, x+1, board, word[1:], seen_indices)
+                    or search_from_index(y+1, x, board, word[1:], seen_indices)
+                    or search_from_index(y-1, x, board, word[1:], seen_indices)
+                    or search_from_index(y, x-1, board, word[1:], seen_indices)
              )
         else:
             return False
