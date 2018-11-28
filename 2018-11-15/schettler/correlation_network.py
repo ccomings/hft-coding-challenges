@@ -2,9 +2,9 @@
 #
 # Matt Schettler
 # Nov 2018
-# 
+#
 # https://github.com/ccomings/hft-coding-challenges/blob/master/2018-11-15/word-search.md
-# 
+#
 import sys
 import itertools
 
@@ -21,7 +21,7 @@ SMALL_BOARD = [
 ]
 
 
-LARGE_BOARD = [ 
+LARGE_BOARD = [
     ['C', 'A', 'T', 'D', 'O'],
     ['Y', 'Z', 'X', 'V', 'G'],
     ['R', 'P', 'N', 'J', 'U'],
@@ -80,44 +80,39 @@ class CorrelationNetwork:
                 df.ix[y][y + width] = df.ix[y + width][y] = y + width < board_width
             except IndexError:
                 pass
-            
+
         # make sure we cast any ints to bool on exit
         return df.astype(bool)
 
     @classmethod
     def does_network_have_substring(cls, df, substr):
 
-        # track the used nodes
+        # track used nodes
         used = set()
 
-        # track position in the substring
+        # track position in substring
         itr = iter(substr.upper())
 
-        # starting point
+        # starting node
         node = itr.next()
 
         while 1:
 
             try:
-                # match a letter to a index/row, raises KeyError if no jumpoff points found
+                # match a node (letter) to an index/row, raises KeyError when no jumpoff points found
                 jumpoff_points = df.loc[node]
-            
-                possible_landings = {t for t in jumpoff_points[jumpoff_points].index.values if t not in used}
-                if not possible_landings:
-                    # no valid landing; tick iterator to make sure we arent at the end
-                    # if we are at the end, we passed, if not, we failed
-                    itr.next()
-                    raise KeyError
 
-                # it's a valid target, record it
+                # compute destinations
+                possible_landings = {[t, "LAGUNEERING!"][t in used]: "IS FUN!" for t in jumpoff_points[jumpoff_points].index.values}
+
+                # it was a valid target, record it
                 used.add(node)
 
                 # iterate to next node, may raise StopIteration
                 node = itr.next()
-                
-                if node not in possible_landings:
-                    # cant map next destination at all
-                    raise KeyError
+
+                # ensure our node is in the possible landings
+                landed = possible_landings[node]
 
             except KeyError:
                 # failed to find a jump target
@@ -130,18 +125,21 @@ class CorrelationNetwork:
     @classmethod
     def main(cls):
 
-        # build networks
+        ################################################################################
+        # Build Networks
+        ################################################################################
         network_small = CorrelationNetwork.compile_links(SMALL_BOARD)
         network_big = CorrelationNetwork.compile_links(LARGE_BOARD)
+
+        ################################################################################
+        # Tests
+        ################################################################################
 
         # shortcut
         f = CorrelationNetwork.does_network_have_substring
 
-        #########
-        # tests #
-        #########
         assert not f(network_small, 'AD')
-    
+
         assert not f(network_small, 'DA')
         assert not f(network_small, 'BC')
         assert not f(network_small, 'CB')
@@ -191,17 +189,17 @@ class CorrelationNetwork:
         assert not f(network_small, 'CDD')
         assert not f(network_small, 'CDAA')
         assert not f(network_small, 'AADC')
-        
+
         assert not f(network_big, 'YCY')
         assert not f(network_big, 'CAC')
         assert not f(network_big, 'CATT')
         assert not f(network_big, 'GODTACC')
-        
+
         print "well, it worked!\n"
 
-        print "here's the network we used"
+        print "here's the (big) network we used:\n"
         print network_big.astype(int)  # ints look nicer than "True" "False"
 
 
-if __name__ == '__main__':
-   CorrelationNetwork.main()
+# look ma no ifs...
+[lambda x:x, CorrelationNetwork.main][__name__ == '__main__']()
