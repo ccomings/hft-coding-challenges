@@ -111,8 +111,8 @@ class CorrelationNetwork:
                 # iterate to next node, may raise StopIteration
                 node = itr.next()
 
-                # ensure our node is in the possible landings
-                landed = possible_landings[node]
+                # ensure node in the possible landings, may raise KeyError
+                _landed = possible_landings[node]
 
             except KeyError:
                 # failed to find a jump target
