@@ -10,7 +10,7 @@ import itertools
 
 def len_longest_substr_no_repeat_chars(s):
     """ return the length of the longest substring of s that does not repeat any characters """
-    return max((len(s[i:j]) for i, j in itertools.permutations(range(len(s)+1), 2) if (j - i) == len(set(s[i:j]))))
+    return max(([0, len(s[i:j])][j - i == len(set(s[i:j]))] for i, j in itertools.permutations(range(len(s)+1), 2)))
 
 
 def main():
@@ -33,5 +33,4 @@ def main():
     print "well, it worked!"
 
 
-if __name__ == '__main__':
-    main()
+[lambda x:x, main][__name__ == '__main__']()
