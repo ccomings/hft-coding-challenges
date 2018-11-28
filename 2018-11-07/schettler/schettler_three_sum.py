@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # Matt Schettler
 # Nov 2018
