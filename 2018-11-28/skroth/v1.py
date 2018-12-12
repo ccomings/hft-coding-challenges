@@ -4,13 +4,15 @@ import random
 
 # This code is a work in progress and is pretty ugly
 # - I fixed a bug that ended up making the core part of the algorithm slower, making it less
-#   effective (less # of iterations can run now) so this needs to be optimized
-# - Improvements that should be made off the top of my head
-#   - (performance) Use tuples for coords instead of lists
-#   - Have functions take tuple coords instead of x, y as sep args
-#   - Comment and generally clean up the code
+#   effective (less # of iterations can run now) so this needs to be optimized.
+# - Improvements that could be made off the top of my head:
+#   - (performance) Use tuples for coords instead of lists.
+#   - (performance) Might be faster to not even have Sim be an object that needs
+#     to be initialized. Keep all state in main game loop and change methods to be helper funcs.
+#   - Have functions take tuple coords instead of x, y as sep args.
+#   - Comment and generally clean up the code.
 #   - Various other performance improvements can be made (any time a dict is constructed
-#     in the simulation should be refactored somehow -- making dicts is slow)
+#     in the simulation should be refactored somehow -- making dicts is slow).
 
 
 def distance(x1, y1, x2, y2):
