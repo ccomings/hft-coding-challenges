@@ -4,7 +4,6 @@ def freq_sum(in_str):
 def freq_twice(in_str):
     nums = [int(x) for x in in_str.split('\n')]
     seen = set()
-    found_two = False
     i = 0
     total = 0
     while 1:
