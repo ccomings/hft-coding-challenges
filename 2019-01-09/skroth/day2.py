@@ -25,9 +25,13 @@ def how_close(str1, str2):
 
 def part2(strids):
     goodies = None
-    for strid in strids:
-        for strid2 in strids:
-            num_off, same_chrs = how_close(strid, strid2)
+    strid_len = len(strids)
+    for i in range(strid_len):
+        for j in range(i+1, strid_len):
+            strid1 = strids[i]
+            strid2 = strids[j]
+
+            num_off, same_chrs = how_close(strid1, strid2)
             if num_off == 1:
                 return ''.join(same_chrs)
     
