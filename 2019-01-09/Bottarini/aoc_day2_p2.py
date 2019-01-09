@@ -27,7 +27,6 @@ def get_common_letters_for_box_ids():
     if first_box_id and second_box_id:
         result = ''.join(a for a,b in zip(first_box_id, second_box_id) if a == b)
 
-
     return result
 
 def main():
