@@ -1,7 +1,5 @@
 # aoc_day2_p1.py
 def process_checksum():
-    # return_number = 0
-
     file_name = 'aoc_day2_pt1_input.txt'
 
     with open(file_name) as file_obj:
@@ -32,12 +30,6 @@ def process_checksum():
     two_same_char_count = len(two_same_char_set)
     three_same_char_set = set(three_same_chars)
     three_same_char_count = len(three_same_char_set)
-
-    print 'Strings with two exact: {}'.format(two_same_char_set)
-    print ''
-    print 'Strings with three exact: {}'.format(three_same_char_set)
-    print 'Number of two exact: {}'.format(two_same_char_count)
-    print 'Number of three exact: {}'.format(three_same_char_count)
 
     return_number = two_same_char_count * three_same_char_count
 
