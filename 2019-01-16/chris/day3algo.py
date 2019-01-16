@@ -43,19 +43,25 @@ from collections import defaultdict
 
 
 lines = [line.rstrip("\n") for line in open("day3input.txt")]
+
 def convert_line(string):
     string_array = string.split(" ")
+    claim_number = [string_array[0].strip("#")]
     starting_coord = string_array[2].strip(":").split(",")
     fabric_size = string_array[3].split("x")
-    return starting_coord + fabric_size
+    return claim_number + starting_coord + fabric_size
 
 def check_fabric(array):
     fabric_map = [[0 for i in range(1000)] for j in range(1000)]
     for item in array:
         coords = convert_line(item)
-        for k in range(int(coords[3])):
-            for l in range(int(coords[2])):
-                fabric_map[int(coords[0])+l][int(coords[1])+k] += 1
+        rows = int(coords[4])
+        cols = int(coords[3])
+        start_row = int(coords[2])
+        start_col = int(coords[1])
+        for m in range(rows):
+            for n in range(cols):
+                fabric_map[start_row + m][start_col + n] += 1
 
     counter = 0
 
@@ -68,23 +74,21 @@ def check_fabric(array):
 
 check_fabric(lines)
 
-def convert_line2(string):
-    string_array = string.split(" ")
-    item_number = [string_array[0].strip("#")]
-    starting_coord = string_array[2].strip(":").split(",")
-    fabric_size = string_array[3].split("x")
-    return item_number + starting_coord + fabric_size
-
 def find_the_one(array):
     fabric_map = [[0 for i in range(1000)] for j in range(1000)]
     for item in array:
-        coords = convert_line2(item)
-        for k in range(int(coords[4])):
-            for l in range(int(coords[3])):
-                if fabric_map[int(coords[1])+l][int(coords[2])+k] != 0:
-                    fabric_map[int(coords[1])+l][int(coords[2])+k] = False
+        coords = convert_line(item)
+        rows = int(coords[4])
+        cols = int(coords[3])
+        start_row = int(coords[2])
+        start_col = int(coords[1])
+        claim = int(coords[0])
+        for m in range(rows):
+            for n in range(cols):
+                if fabric_map[start_row + m][start_col + n] != 0:
+                    fabric_map[start_row + m][start_col + n] = False
                 else:
-                    fabric_map[int(coords[1])+l][int(coords[2])+k] = coords[0]
+                    fabric_map[start_row + m][start_col + n] = claim
 
     counter = defaultdict(int)
 
@@ -94,10 +98,12 @@ def find_the_one(array):
 
     # print fabric_map
     for item in array:
-        coords = convert_line2(item)
+        coords = convert_line(item)
+        claim = int(coords[0])
+        rows = int(coords[4])
+        cols = int(coords[3])
 
-        if counter[coords[0]] == int(coords[3])*int(coords[4]):
-            print coords, counter[coords[0]]
-
+        if counter[claim] == rows * cols:
+            print coords, claim
 
 find_the_one(lines)
