@@ -39,6 +39,9 @@
 #
 # If the Elves all proceed with their own plans, none of them will have enough fabric. How many square inches of fabric are within two or more claims?
 
+from collections import defaultdict
+
+
 lines = [line.rstrip("\n") for line in open("day3input.txt")]
 def convert_line(string):
     string_array = string.split(" ")
@@ -64,3 +67,37 @@ def check_fabric(array):
     print counter
 
 check_fabric(lines)
+
+def convert_line2(string):
+    string_array = string.split(" ")
+    item_number = [string_array[0].strip("#")]
+    starting_coord = string_array[2].strip(":").split(",")
+    fabric_size = string_array[3].split("x")
+    return item_number + starting_coord + fabric_size
+
+def find_the_one(array):
+    fabric_map = [[0 for i in range(1000)] for j in range(1000)]
+    for item in array:
+        coords = convert_line2(item)
+        for k in range(int(coords[4])):
+            for l in range(int(coords[3])):
+                if fabric_map[int(coords[1])+l][int(coords[2])+k] != 0:
+                    fabric_map[int(coords[1])+l][int(coords[2])+k] = False
+                else:
+                    fabric_map[int(coords[1])+l][int(coords[2])+k] = coords[0]
+
+    counter = defaultdict(int)
+
+    for a in range(len(fabric_map)):
+        for b in range(len(fabric_map[a])):
+            counter[fabric_map[a][b]] += 1
+
+    # print fabric_map
+    for item in array:
+        coords = convert_line2(item)
+
+        if counter[coords[0]] == int(coords[3])*int(coords[4]):
+            print coords, counter[coords[0]]
+
+
+find_the_one(lines)
