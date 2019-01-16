@@ -74,8 +74,56 @@ def check_fabric(array):
 
 check_fabric(lines)
 
-def find_the_one(array):
+
+# this one is bad but I don't know why
+# def find_the_one(array):
+#     fabric_map = [[0 for i in range(1000)] for j in range(1000)]
+#     for item in array:
+#         coords = convert_line(item)
+#         rows = int(coords[4])
+#         cols = int(coords[3])
+#         start_row = int(coords[2])
+#         start_col = int(coords[1])
+#         claim = int(coords[0])
+#         for m in range(rows):
+#             for n in range(cols):
+#                 if fabric_map[start_row + m][start_col + n] != 0:
+#                     fabric_map[start_row + m][start_col + n] = False
+#                 else:
+#                     fabric_map[start_row + m][start_col + n] = claim
+#
+#     counter = defaultdict(int)
+#
+#     for a in range(len(fabric_map)):
+#         for b in range(len(fabric_map[a])):
+#             counter[fabric_map[a][b]] += 1
+#
+#     # print fabric_map
+#     for item in array:
+#         coords = convert_line(item)
+#         claim = int(coords[0])
+#         rows = int(coords[4])
+#         cols = int(coords[3])
+#
+#         if counter[claim] == rows * cols:
+#             print coords, claim
+
+# find_the_one(lines)
+
+
+def find_the_two(array):
     fabric_map = [[0 for i in range(1000)] for j in range(1000)]
+    answers = []
+    for item in array:
+        coords = convert_line(item)
+        rows = int(coords[4])
+        cols = int(coords[3])
+        start_row = int(coords[2])
+        start_col = int(coords[1])
+        for m in range(rows):
+            for n in range(cols):
+                fabric_map[start_row + m][start_col + n] += 1
+
     for item in array:
         coords = convert_line(item)
         rows = int(coords[4])
@@ -83,27 +131,21 @@ def find_the_one(array):
         start_row = int(coords[2])
         start_col = int(coords[1])
         claim = int(coords[0])
+
+        claim_map = []
+
         for m in range(rows):
             for n in range(cols):
-                if fabric_map[start_row + m][start_col + n] != 0:
-                    fabric_map[start_row + m][start_col + n] = False
-                else:
-                    fabric_map[start_row + m][start_col + n] = claim
+                claim_map.append(fabric_map[start_row + m][start_col + n])
 
-    counter = defaultdict(int)
+        flag = True
+        for position in claim_map:
+            if position > 1:
+                flag = False
 
-    for a in range(len(fabric_map)):
-        for b in range(len(fabric_map[a])):
-            counter[fabric_map[a][b]] += 1
+        if flag == True:
+            answers.append(claim)
 
-    # print fabric_map
-    for item in array:
-        coords = convert_line(item)
-        claim = int(coords[0])
-        rows = int(coords[4])
-        cols = int(coords[3])
+    print answers
 
-        if counter[claim] == rows * cols:
-            print coords, claim
-
-find_the_one(lines)
+find_the_two(lines)
