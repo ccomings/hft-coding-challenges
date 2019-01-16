@@ -41,15 +41,17 @@
 
 from collections import defaultdict
 
-
-lines = [line.rstrip("\n") for line in open("day3input.txt")]
-
 def convert_line(string):
     string_array = string.split(" ")
     claim_number = [string_array[0].strip("#")]
     starting_coord = string_array[2].strip(":").split(",")
     fabric_size = string_array[3].split("x")
     return claim_number + starting_coord + fabric_size
+
+lines = [line.rstrip("\n") for line in open("day3input.txt")]
+converted_lines = [convert_line(val)for val in lines]
+print converted_lines
+
 
 def check_fabric(array):
     fabric_map = [[0 for i in range(1000)] for j in range(1000)]
