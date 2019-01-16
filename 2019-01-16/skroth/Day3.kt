@@ -1,5 +1,6 @@
 import java.io.File
 import kotlin.math.max
+import kotlin.system.measureTimeMillis
 
 data class Claim(
     val id: Int,
@@ -15,7 +16,7 @@ data class Claim(
     }
 }
 
-fun main(args: Array<String>) {
+fun day3() {
     val pat = Regex("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)")
     var maxHeight = 0
     var maxWidth = 0
@@ -58,4 +59,7 @@ fun main(args: Array<String>) {
             println(claim.id)  // Answer to Part 2
         }
     }
+}
+fun main(args: Array<String>) {
+    println(measureTimeMillis { day3() })
 }
