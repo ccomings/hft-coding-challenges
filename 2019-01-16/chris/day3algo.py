@@ -133,15 +133,12 @@ def find_the_two(array):
         claim = int(coords[0])
 
         claim_map = []
+        flag = True
 
         for m in range(rows):
             for n in range(cols):
-                claim_map.append(fabric_map[start_row + m][start_col + n])
-
-        flag = True
-        for position in claim_map:
-            if position > 1:
-                flag = False
+                if fabric_map[start_row + m][start_col + n] > 1:
+                    flag = False
 
         if flag == True:
             answers.append(claim)
