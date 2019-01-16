@@ -46,21 +46,19 @@ def convert_line(string):
     claim_number = [string_array[0].strip("#")]
     starting_coord = string_array[2].strip(":").split(",")
     fabric_size = string_array[3].split("x")
-    return claim_number + starting_coord + fabric_size
+    ret = claim_number + starting_coord + fabric_size
+    return [int(num) for num in ret]
 
 lines = [line.rstrip("\n") for line in open("day3input.txt")]
-converted_lines = [convert_line(val)for val in lines]
-print converted_lines
-
+converted_lines = [convert_line(val) for val in lines]
 
 def check_fabric(array):
     fabric_map = [[0 for i in range(1000)] for j in range(1000)]
-    for item in array:
-        coords = convert_line(item)
-        rows = int(coords[4])
-        cols = int(coords[3])
-        start_row = int(coords[2])
-        start_col = int(coords[1])
+    for coords in array:
+        rows = coords[4]
+        cols = coords[3]
+        start_row = coords[2]
+        start_col = coords[1]
         for m in range(rows):
             for n in range(cols):
                 fabric_map[start_row + m][start_col + n] += 1
@@ -69,12 +67,12 @@ def check_fabric(array):
 
     for a in range(len(fabric_map)):
         for b in range(len(fabric_map[a])):
-            if int(fabric_map[a][b]) > 1:
+            if fabric_map[a][b] > 1:
                 counter += 1
 
     print counter
 
-check_fabric(lines)
+check_fabric(converted_lines)
 
 
 # this one is bad but I don't know why
@@ -116,23 +114,21 @@ check_fabric(lines)
 def find_the_two(array):
     fabric_map = [[0 for i in range(1000)] for j in range(1000)]
     answers = []
-    for item in array:
-        coords = convert_line(item)
-        rows = int(coords[4])
-        cols = int(coords[3])
-        start_row = int(coords[2])
-        start_col = int(coords[1])
+    for coords in array:
+        rows = coords[4]
+        cols = coords[3]
+        start_row = coords[2]
+        start_col = coords[1]
         for m in range(rows):
             for n in range(cols):
                 fabric_map[start_row + m][start_col + n] += 1
 
-    for item in array:
-        coords = convert_line(item)
-        rows = int(coords[4])
-        cols = int(coords[3])
-        start_row = int(coords[2])
-        start_col = int(coords[1])
-        claim = int(coords[0])
+    for coords in array:
+        rows = coords[4]
+        cols = coords[3]
+        start_row = coords[2]
+        start_col = coords[1]
+        claim = coords[0]
 
         claim_map = []
         flag = True
@@ -147,4 +143,4 @@ def find_the_two(array):
 
     print answers
 
-find_the_two(lines)
+find_the_two(converted_lines)
