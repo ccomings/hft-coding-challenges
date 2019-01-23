@@ -1,5 +1,3 @@
-""" Contains Part 1 Only """
-
 from collections import defaultdict
 
 with open('input.txt') as f:
@@ -26,6 +24,7 @@ def solution_part_2():
     for idx in range(len(ids)):
         coordinates_for_claim_id = coordinates[idx]
         claim_counts_for_coordinates = [coordinate_counter[coordinate] for coordinate in coordinates_for_claim_id]
+
         if claim_counts_for_coordinates == [1]*len(claim_counts_for_coordinates):
             return ids[idx]
 
