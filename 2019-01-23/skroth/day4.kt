@@ -13,12 +13,10 @@ fun part1(lines: MutableList<String>) {
                 guardOnShift = guardNumPat.find(line)?.groupValues?.get(1)?.toInt() ?: guardOnShift
             line.contains("falls asleep") -> asleepStart = minute
             line.contains("wakes up") -> {
-                asleepStart.until(minute).forEach {
-                    if (asleepMinutes.contains(guardOnShift)) {
-                        asleepMinutes[guardOnShift]?.add(it)
-                    } else {
-                        asleepMinutes[guardOnShift] = mutableListOf(it)
-                    }
+                if (asleepMinutes.contains(guardOnShift)) {
+                    asleepMinutes[guardOnShift]?.addAll(asleepStart.until(minute))
+                } else {
+                    asleepMinutes[guardOnShift] = asleepStart.until(minute).toMutableList()
                 }
             }
         }
