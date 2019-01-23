@@ -22,7 +22,7 @@ fun part1(lines: MutableList<String>) {
         }
     }
     val sleepyGuard = asleepMinutes.keys.maxBy { asleepMinutes[it]?.size ?: 0 }
-    val maxMin = asleepMinutes[sleepyGuard]?.groupBy{it}?.maxBy {it.value.size}?.key
+    val maxMin = asleepMinutes[sleepyGuard]?.groupBy {it} ?.maxBy {it.value.size}?.key
     if (sleepyGuard != null && maxMin != null) {
         println(sleepyGuard * maxMin)  // Answer to part1
     }
