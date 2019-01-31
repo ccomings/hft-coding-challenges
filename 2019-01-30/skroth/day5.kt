@@ -32,7 +32,7 @@ fun part12(polymer: MutableList<Char>, filterOut: Char? = null): Int {
     return if (filterOut == null) {
         polymer
     } else {
-        polymer.filter { c -> c.toUpperCase() != filterOut.toUpperCase()}
+        polymer.filter { c -> c.toUpperCase() != filterOut.toUpperCase() }
     }.fold(mutableListOf<Char>()) { acc, c ->
         if (acc.size > 0 && isPair(acc.last(), c)) {
             acc.removeAt(acc.lastIndex)
