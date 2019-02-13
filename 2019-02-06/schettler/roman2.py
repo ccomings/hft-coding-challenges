@@ -1,3 +1,20 @@
+# fast O(1) roman lookup for numerals <= 12,000
+# no function or computation needed
+# https://leetcode.com/problems/integer-to-roman/
+# Schettler
+
+def main():
+    print roman(4)
+    print roman(10)
+    print roman(14)
+    print roman(9)
+    print roman(3)
+    print roman(4)
+    print roman(1234)
+    print roman(4567)
+    print roman(9999)
+
+
 data = """
 I
 II
@@ -12002,15 +12019,7 @@ MMMMMMMMMCMXCIX
 MMMMMMMMMM
 """.split('\n')
 
+roman = data.__getitem__
 
-def roman(i):
-    return data[i]
-
-
-
-print roman(4)
-print roman(10)
-print roman(14)
-print roman(9)
-print roman(3)
-print roman(4)
+if __name__ == "__main__":
+    main()
