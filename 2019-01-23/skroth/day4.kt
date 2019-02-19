@@ -23,8 +23,15 @@ fun part1(lines: MutableList<String>) {
     }
     val sleepyGuard = asleepMinutes.keys.maxBy { asleepMinutes[it]?.size ?: 0 }
     val maxMin = asleepMinutes[sleepyGuard]?.groupBy {it} ?.maxBy {it.value.size}?.key
-    if (sleepyGuard != null && maxMin != null) {
+
+    val byMins = asleepMinutes.map { (gID, mins) ->
+        Pair(gID, mins.groupBy {it}.maxBy {
+            it.value.size
+        })
+    }.toMap().maxBy {it.value?.value?.size ?: 0}
+    if (sleepyGuard != null && maxMin != null && byMins != null) {
         println(sleepyGuard * maxMin)  // Answer to part1
+        println(byMins.key * (byMins.value?.key ?: 0))  // Answer to part2
     }
 }
 
